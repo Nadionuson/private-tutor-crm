@@ -2,8 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { logout } from '@/app/(auth)/login/actions'
 
 const NAV = [
   { href: '/', label: 'Dashboard', icon: '🏠' },
@@ -14,13 +13,6 @@ const NAV = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const router = useRouter()
-
-  async function signOut() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/login')
-  }
 
   return (
     <aside className="w-[220px] min-w-[220px] bg-white border-r border-indigo-100 flex flex-col h-screen sticky top-0">
@@ -76,12 +68,14 @@ export function Sidebar() {
       </nav>
 
       <div className="px-3.5 py-3 border-t border-indigo-50">
-        <button
-          onClick={signOut}
-          className="w-full text-left flex items-center gap-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          <span>↩</span> Sign out
-        </button>
+        <form action={logout}>
+          <button
+            type="submit"
+            className="w-full text-left flex items-center gap-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <span>↩</span> Sign out
+          </button>
+        </form>
       </div>
     </aside>
   )
