@@ -66,7 +66,12 @@ function LessonRow({ lesson, student }: { lesson: LessonWithNotes; student: Stud
             </div>
           </div>
           {lesson.lesson_notes?.topic ? (
-            <div className="mt-1.5 text-xs text-indigo-950 font-semibold">{lesson.lesson_notes.topic}</div>
+            <div className="mt-1.5">
+              <div className="text-xs text-indigo-950 font-semibold">{lesson.lesson_notes.topic}</div>
+              {!isUpcoming && (
+                <LessonNotesDialog lessonId={lesson.id} studentId={student.id} existing={lesson.lesson_notes} />
+              )}
+            </div>
           ) : (
             !isUpcoming && (
               <LessonNotesDialog lessonId={lesson.id} studentId={student.id} existing={lesson.lesson_notes} />
@@ -84,7 +89,7 @@ function LessonRow({ lesson, student }: { lesson: LessonWithNotes; student: Stud
               <button
                 onClick={handleCancel}
                 disabled={cancelling}
-                className="text-xs text-red-400 border border-red-100 px-3 py-1 rounded-lg"
+                className="text-xs text-red-400 border border-red-100 px-3 py-1 rounded-lg hover:bg-red-50"
               >
                 {cancelling ? '…' : 'Cancelar'}
               </button>

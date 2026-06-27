@@ -19,7 +19,7 @@ export function StatBar({ student }: { student: StudentWithStats }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 bg-white border border-indigo-100 rounded-xl overflow-hidden mb-4">
       {stats.map((s, i) => (
-        <div key={s.label} className={`px-3 py-3 md:px-4 md:py-3.5 border-b md:border-b-0 border-indigo-50 ${i % 2 === 0 ? 'border-r border-indigo-50' : ''} md:border-r md:last:border-r-0`}>
+        <div key={s.label} className={`px-3 py-3 md:px-4 md:py-3.5 border-b md:border-b-0 border-indigo-50 ${i % 2 === 0 ? 'border-r border-indigo-50' : ''} md:border-r md:[&:nth-child(3n)]:border-r-0 lg:border-r lg:[&:nth-child(6n)]:border-r-0`}>
           <div className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">{s.label}</div>
           <div className={`text-base font-bold text-indigo-950 ${s.className}`}>{s.value}</div>
           {s.sub && <div className="text-[10px] text-gray-400 mt-0.5">{s.sub}</div>}

@@ -31,7 +31,7 @@ export function ProfileHeader({ student }: { student: StudentWithStats }) {
             </div>
           </div>
           <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-500 flex-wrap">
-            <span className="bg-indigo-50 text-indigo-600 text-xs font-semibold px-2 py-0.5 rounded">{student.grade}</span>
+            <span className="bg-indigo-50 text-indigo-600 text-xs font-semibold px-2 py-0.5 rounded">{student.grade} grade</span>
             <span>Idade {student.age}</span>
             <span>·</span>
             <span>{student.parent_name}</span>
