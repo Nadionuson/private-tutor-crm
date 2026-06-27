@@ -19,6 +19,7 @@ interface Props {
 export function ScheduleLessonFromCalendarDialog({ start, end, students, open, onClose }: Props) {
   const [studentId, setStudentId] = useState('')
   const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const startDt = new Date(start)
   const endDt = new Date(end)
@@ -30,6 +31,7 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
     e.preventDefault()
     if (!selectedStudent) return
     const fd = new FormData(e.currentTarget)
+    setError(null)
     setPending(true)
     try {
       await scheduleLesson(studentId, {
@@ -38,6 +40,8 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
         rateAtTime: selectedStudent.hourly_rate,
       })
       onClose()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to schedule lesson')
     } finally {
       setPending(false)
     }
@@ -51,7 +55,7 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
           <div>
             <Label>Student</Label>
             <Select value={studentId} onValueChange={(v) => { if (v) setStudentId(v) }} required>
-              <SelectTrigger><SelectValue placeholder="Select student…" /></SelectTrigger>
+              <SelectTrigger><SelectValue placeholder="Select student…">{selectedStudent?.name}</SelectValue></SelectTrigger>
               <SelectContent>
                 {students.map(s => (
                   <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
@@ -82,6 +86,7 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
           {selectedStudent && (
             <div className="text-xs text-gray-400">Rate: €{selectedStudent.hourly_rate}/hr</div>
           )}
+          {error && <div className="text-xs text-red-500">{error}</div>}
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
             <Button type="submit" disabled={pending || !studentId} style={{ background: '#6366f1' }}>

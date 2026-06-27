@@ -15,10 +15,12 @@ interface Props {
 export function ScheduleLessonDialog({ studentId, defaultRate, trigger }: Props) {
   const [open, setOpen] = useState(false)
   const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
+    setError(null)
     setPending(true)
     try {
       await scheduleLesson(studentId, {
@@ -27,6 +29,8 @@ export function ScheduleLessonDialog({ studentId, defaultRate, trigger }: Props)
         rateAtTime: defaultRate,
       })
       setOpen(false)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to schedule lesson')
     } finally {
       setPending(false)
     }
@@ -52,6 +56,7 @@ export function ScheduleLessonDialog({ studentId, defaultRate, trigger }: Props)
             <Input id="duration_minutes" name="duration_minutes" type="number" defaultValue="60" min="15" step="15" required />
           </div>
           <div className="text-xs text-gray-400">Rate: €{defaultRate}/hr</div>
+          {error && <div className="text-xs text-red-500">{error}</div>}
           <div className="flex justify-end gap-2 pt-1">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
             <Button type="submit" disabled={pending} style={{ background: '#6366f1' }}>
