@@ -77,6 +77,7 @@ export function LessonCalendar({ lessons, students }: Props) {
     <>
       <div className="bg-white rounded-xl border border-indigo-100 p-4">
         <FullCalendar
+          key={isMobile ? 'mobile' : 'desktop'}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView={isMobile ? 'timeGridDay' : 'timeGridWeek'}
           headerToolbar={isMobile ? mobileToolbar : desktopToolbar}
