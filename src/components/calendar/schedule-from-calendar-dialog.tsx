@@ -25,6 +25,11 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
   const endDt = new Date(end)
   const defaultDuration = Math.round((endDt.getTime() - startDt.getTime()) / 60000) || 60
 
+  function toLocalInputValue(date: Date) {
+    const pad = (n: number) => n.toString().padStart(2, '0')
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+  }
+
   const selectedStudent = students.find(s => s.id === studentId)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -35,7 +40,7 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
     setPending(true)
     try {
       await scheduleLesson(studentId, {
-        scheduledAt: startDt.toISOString(),
+        scheduledAt: new Date(fd.get('scheduled_at') as string).toISOString(),
         durationMinutes: Number(fd.get('duration_minutes')),
         rateAtTime: selectedStudent.hourly_rate,
       })
@@ -68,8 +73,8 @@ export function ScheduleLessonFromCalendarDialog({ start, end, students, open, o
             <Input
               name="scheduled_at"
               type="datetime-local"
-              defaultValue={startDt.toISOString().slice(0, 16)}
-              readOnly
+              defaultValue={toLocalInputValue(startDt)}
+              required
             />
           </div>
           <div>

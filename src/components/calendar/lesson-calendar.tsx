@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import ptLocale from '@fullcalendar/core/locales/pt'
 import type { DateSelectArg, EventClickArg } from '@fullcalendar/core'
 import { Student } from '@/lib/types'
 import { ScheduleLessonFromCalendarDialog } from './schedule-from-calendar-dialog'
@@ -64,6 +65,7 @@ export function LessonCalendar({ lessons, students }: Props) {
             right: 'dayGridMonth,timeGridWeek,timeGridDay',
           }}
           events={events}
+          locale={ptLocale}
           selectable
           selectMirror
           select={handleDateSelect}

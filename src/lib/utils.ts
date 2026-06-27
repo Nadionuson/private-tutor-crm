@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { format, formatDistanceToNow } from 'date-fns'
+import { pt } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -12,17 +13,17 @@ export function formatCurrency(amount: number): string {
 
 export function formatDate(date: string | null): string {
   if (!date) return '—'
-  return format(new Date(date), 'dd MMM yyyy')
+  return format(new Date(date), 'dd MMM yyyy', { locale: pt })
 }
 
 export function formatDateTime(date: string | null): string {
   if (!date) return '—'
-  return format(new Date(date), 'dd MMM · HH:mm')
+  return format(new Date(date), 'dd MMM · HH:mm', { locale: pt })
 }
 
 export function formatRelative(date: string | null): string {
   if (!date) return '—'
-  return formatDistanceToNow(new Date(date), { addSuffix: true })
+  return formatDistanceToNow(new Date(date), { addSuffix: true, locale: pt })
 }
 
 export function lessonCost(durationMinutes: number, ratePerHour: number): number {
