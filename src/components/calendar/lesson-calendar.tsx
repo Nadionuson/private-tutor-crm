@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -34,6 +34,14 @@ const STATUS_COLORS: Record<string, string> = {
 export function LessonCalendar({ lessons, students }: Props) {
   const [scheduleData, setScheduleData] = useState<{ start: string; end: string } | null>(null)
   const [selectedLesson, setSelectedLesson] = useState<CalendarLesson | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const events = lessons.map(l => ({
     id: l.id,
@@ -53,19 +61,27 @@ export function LessonCalendar({ lessons, students }: Props) {
     setSelectedLesson(info.event.extendedProps as CalendarLesson)
   }
 
+  const mobileToolbar = {
+    left: 'prev,next',
+    center: 'title',
+    right: 'today',
+  }
+
+  const desktopToolbar = {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+  }
+
   return (
     <>
       <div className="bg-white rounded-xl border border-indigo-100 p-4">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView="timeGridWeek"
-          headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay',
-          }}
-          events={events}
+          initialView={isMobile ? 'timeGridDay' : 'timeGridWeek'}
+          headerToolbar={isMobile ? mobileToolbar : desktopToolbar}
           locale={ptLocale}
+          events={events}
           selectable
           selectMirror
           select={handleDateSelect}
