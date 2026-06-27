@@ -3,6 +3,11 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export async function createStudent(formData: FormData) {
+  const email = (formData.get('parent_email') as string ?? '').trim()
+  const phone = (formData.get('parent_phone') as string ?? '').trim()
+  if (!email && !phone) {
+    throw new Error('Indique pelo menos um email ou telefone do encarregado.')
+  }
   const supabase = await createClient()
   const { error } = await supabase.from('students').insert({
     name: formData.get('name') as string,

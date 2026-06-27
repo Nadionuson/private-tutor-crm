@@ -8,12 +8,12 @@ export function StatBar({ student }: { student: StudentWithStats }) {
     : 'text-green-600'
 
   const stats = [
-    { label: 'Outstanding', value: formatCurrency(Math.max(0, student.balance)), className: student.balance > 0 ? 'text-red-500' : 'text-green-600', sub: student.balance > 0 ? 'needs payment' : 'all clear' },
-    { label: 'Total paid', value: formatCurrency(student.total_paid), className: 'text-green-600', sub: 'all time' },
-    { label: 'Lessons', value: student.lesson_count.toString(), className: '', sub: 'completed' },
-    { label: 'Last lesson', value: formatDate(student.last_lesson), className: 'text-[13px]', sub: student.last_lesson ? `${Math.round((Date.now() - new Date(student.last_lesson).getTime()) / 86400000)} days ago` : '' },
+    { label: 'Outstanding', value: formatCurrency(Math.max(0, student.balance)), className: student.balance > 0 ? 'text-red-500' : 'text-green-600', sub: student.balance > 0 ? 'por pagar' : 'em dia' },
+    { label: 'Total paid', value: formatCurrency(student.total_paid), className: 'text-green-600', sub: 'total' },
+    { label: 'Lessons', value: student.lesson_count.toString(), className: '', sub: 'concluídas' },
+    { label: 'Last lesson', value: formatDate(student.last_lesson), className: 'text-[13px]', sub: student.last_lesson ? `${Math.round((Date.now() - new Date(student.last_lesson).getTime()) / 86400000)} dias atrás` : '' },
     { label: 'Next lesson', value: formatDate(student.next_lesson), className: 'text-[13px] text-indigo-600', sub: student.next_lesson ? new Date(student.next_lesson).toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : 'não agendado' },
-    { label: 'Avg aging', value: student.avg_payment_aging ? `${student.avg_payment_aging}d` : '—', className: agingColor, sub: 'payment speed' },
+    { label: 'Avg aging', value: student.avg_payment_aging ? `${student.avg_payment_aging}d` : '—', className: agingColor, sub: 'prazo médio' },
   ]
 
   return (

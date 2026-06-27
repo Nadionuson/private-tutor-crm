@@ -4,8 +4,8 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 const TABS = [
-  { href: '/', label: 'Dashboard', icon: '🏠' },
-  { href: '/students', label: 'Students', icon: '👥' },
+  { href: '/', label: 'Início', icon: '🏠' },
+  { href: '/students', label: 'Alunos', icon: '👥' },
   { href: '/calendar', label: 'Calendário', icon: '📅' },
   { href: '/payments', label: 'Pagamentos', icon: '💶' },
 ]
@@ -14,7 +14,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 flex md:hidden bg-white border-t border-indigo-100 pb-4">
+    <nav className="fixed bottom-0 inset-x-0 z-40 flex md:hidden bg-white border-t border-indigo-100" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
       {TABS.map(tab => {
         const active = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href)
         return (
