@@ -49,19 +49,19 @@ export function LessonEventDialog({ lesson, open, onClose }: { lesson: CalendarL
         <div className="space-y-3 mt-1">
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="bg-indigo-50 rounded-lg px-3 py-2">
-              <div className="text-xs text-gray-400">When</div>
+              <div className="text-xs text-gray-400">Quando</div>
               <div className="font-semibold text-indigo-950">{formatDateTime(lesson.scheduled_at)}</div>
             </div>
             <div className="bg-indigo-50 rounded-lg px-3 py-2">
-              <div className="text-xs text-gray-400">Duration</div>
+              <div className="text-xs text-gray-400">Duração</div>
               <div className="font-semibold text-indigo-950">{lesson.duration_minutes} min</div>
             </div>
             <div className="bg-indigo-50 rounded-lg px-3 py-2">
-              <div className="text-xs text-gray-400">Grade</div>
+              <div className="text-xs text-gray-400">Ano</div>
               <div className="font-semibold text-indigo-950">{lesson.students?.grade}</div>
             </div>
             <div className="bg-indigo-50 rounded-lg px-3 py-2">
-              <div className="text-xs text-gray-400">Value</div>
+              <div className="text-xs text-gray-400">Valor</div>
               <div className="font-semibold text-indigo-950">{formatCurrency(cost)}</div>
             </div>
           </div>
@@ -74,7 +74,7 @@ export function LessonEventDialog({ lesson, open, onClose }: { lesson: CalendarL
                 className="flex-1"
                 style={{ background: '#6366f1' }}
               >
-                {pending === 'complete' ? '…' : '✓ Mark complete'}
+                {pending === 'complete' ? '…' : '✓ Concluir'}
               </Button>
               <Button
                 onClick={handleCancel}
@@ -82,14 +82,14 @@ export function LessonEventDialog({ lesson, open, onClose }: { lesson: CalendarL
                 variant="outline"
                 className="text-red-500 border-red-200 hover:bg-red-50"
               >
-                {pending === 'cancel' ? '…' : 'Cancel'}
+                {pending === 'cancel' ? '…' : 'Cancelar'}
               </Button>
             </div>
           )}
 
           {lesson.status !== 'scheduled' && (
             <div className={`text-center text-sm font-semibold py-2 rounded-lg ${lesson.status === 'completed' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'}`}>
-              {lesson.status === 'completed' ? '✓ Completed' : '✗ Cancelled'}
+              {lesson.status === 'completed' ? '✓ Concluída' : '✗ Cancelada'}
             </div>
           )}
         </div>

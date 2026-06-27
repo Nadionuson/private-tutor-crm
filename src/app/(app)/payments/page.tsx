@@ -21,27 +21,27 @@ export default async function PaymentsPage() {
   return (
     <div>
       <div className="bg-white border-b border-indigo-100 px-4 py-3 md:px-7 md:py-4">
-        <h1 className="text-lg font-bold text-indigo-950">Payments</h1>
-        <p className="text-xs text-gray-400">Outstanding balances and payment history</p>
+        <h1 className="text-lg font-bold text-indigo-950">Pagamentos</h1>
+        <p className="text-xs text-gray-400">Saldos em dívida e histórico de pagamentos</p>
       </div>
 
       <div className="p-4 md:p-7">
         {/* KPI cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
           <div className="bg-white border border-indigo-100 rounded-xl p-4">
-            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Total outstanding</div>
+            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Total em dívida</div>
             <div className="text-2xl font-bold text-red-500">{formatCurrency(totalOutstanding)}</div>
-            <div className="text-xs text-gray-400 mt-1">{students.filter(s => s.balance > 0).length} students owe</div>
+            <div className="text-xs text-gray-400 mt-1">{students.filter(s => s.balance > 0).length} aluno{students.filter(s => s.balance > 0).length !== 1 ? 's' : ''} com dívida</div>
           </div>
           <div className="bg-white border border-indigo-100 rounded-xl p-4">
-            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Total collected</div>
+            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Total recebido</div>
             <div className="text-2xl font-bold text-green-600">{formatCurrency(totalCollected)}</div>
-            <div className="text-xs text-gray-400 mt-1">all time</div>
+            <div className="text-xs text-gray-400 mt-1">acumulado</div>
           </div>
           <div className="bg-white border border-indigo-100 rounded-xl p-4">
-            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Avg payment aging</div>
-            <div className="text-2xl font-bold text-indigo-950">{avgAging} days</div>
-            <div className="text-xs text-gray-400 mt-1">avg days to pay</div>
+            <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Atraso médio</div>
+            <div className="text-2xl font-bold text-indigo-950">{avgAging} dias</div>
+            <div className="text-xs text-gray-400 mt-1">média de dias a pagar</div>
           </div>
         </div>
 
@@ -49,10 +49,10 @@ export default async function PaymentsPage() {
           {/* Student ranking */}
           <div className="bg-white border border-indigo-100 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-indigo-50">
-              <span className="text-sm font-bold text-indigo-950">Students by balance</span>
+              <span className="text-sm font-bold text-indigo-950">Alunos por saldo</span>
             </div>
             {ranked.length === 0 && (
-              <div className="px-5 py-8 text-center text-sm text-gray-400">No data yet</div>
+              <div className="px-5 py-8 text-center text-sm text-gray-400">Sem dados</div>
             )}
             {ranked.map(student => (
               <Link key={student.id} href={`/students/${student.id}?tab=payments`}>
@@ -65,10 +65,10 @@ export default async function PaymentsPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-semibold text-indigo-950">{student.name}</div>
-                    <div className="text-xs text-gray-400">{student.lesson_count} lessons · Total paid: {formatCurrency(student.total_paid)}</div>
+                    <div className="text-xs text-gray-400">{student.lesson_count} aulas · Total pago: {formatCurrency(student.total_paid)}</div>
                   </div>
                   <div className={`text-sm font-bold ${student.balance > 0 ? 'text-red-500' : 'text-green-600'}`}>
-                    {student.balance > 0 ? formatCurrency(student.balance) : '✓ Paid'}
+                    {student.balance > 0 ? formatCurrency(student.balance) : '✓ Pago'}
                   </div>
                   {student.avg_payment_aging && (
                     <div className={`text-xs px-2 py-0.5 rounded ${student.avg_payment_aging > 14 ? 'bg-red-50 text-red-500' : student.avg_payment_aging > 7 ? 'bg-amber-50 text-amber-500' : 'bg-green-50 text-green-600'}`}>
@@ -83,10 +83,10 @@ export default async function PaymentsPage() {
           {/* Payment history */}
           <div className="bg-white border border-indigo-100 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-indigo-50">
-              <span className="text-sm font-bold text-indigo-950">Payment history</span>
+              <span className="text-sm font-bold text-indigo-950">Histórico de pagamentos</span>
             </div>
             {allPayments.length === 0 && (
-              <div className="px-5 py-8 text-center text-sm text-gray-400">No payments yet</div>
+              <div className="px-5 py-8 text-center text-sm text-gray-400">Sem pagamentos</div>
             )}
             {allPayments.map(p => {
               const student = (p as any).students

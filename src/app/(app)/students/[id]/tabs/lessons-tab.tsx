@@ -14,14 +14,14 @@ export function LessonsTab({ student }: { student: StudentWithStats }) {
   return (
     <div className="bg-white border border-indigo-100 rounded-xl overflow-hidden">
       <div className="px-5 py-3.5 border-b border-indigo-50 flex items-center justify-between">
-        <span className="text-sm font-bold text-indigo-950">Lesson history</span>
+        <span className="text-sm font-bold text-indigo-950">Histórico de aulas</span>
         <span className="text-xs text-gray-400">
-          {student.lesson_count} completed · {student.lessons.filter(l => l.status === 'scheduled').length} upcoming
+          {student.lesson_count} concluídas · {student.lessons.filter(l => l.status === 'scheduled').length} próximas
         </span>
       </div>
 
       {sorted.length === 0 && (
-        <div className="px-5 py-10 text-center text-sm text-gray-400">No lessons yet.</div>
+        <div className="px-5 py-10 text-center text-sm text-gray-400">Sem aulas registadas.</div>
       )}
 
       {sorted.map(lesson => (
@@ -118,7 +118,7 @@ function LessonRow({ lesson, student }: { lesson: LessonWithNotes; student: Stud
               <div className="flex gap-1.5 flex-wrap">
                 {lesson.lesson_notes.prep_notes && (
                   <span className="text-[10px] bg-indigo-50 text-indigo-500 px-2 py-0.5 rounded">
-                    Prep: {lesson.lesson_notes.prep_notes.slice(0, 40)}{lesson.lesson_notes.prep_notes.length > 40 ? '…' : ''}
+                    Prep.: {lesson.lesson_notes.prep_notes.slice(0, 40)}{lesson.lesson_notes.prep_notes.length > 40 ? '…' : ''}
                   </span>
                 )}
                 {lesson.lesson_notes.outcome_notes && (

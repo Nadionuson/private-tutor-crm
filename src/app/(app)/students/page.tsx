@@ -9,8 +9,8 @@ export default async function StudentsPage() {
     <div>
       <div className="bg-white border-b border-indigo-100 px-4 py-3 md:px-7 md:py-4 flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-indigo-950">Students</h1>
-          <p className="text-xs text-gray-400">{students.length} student{students.length !== 1 ? 's' : ''}</p>
+          <h1 className="text-lg font-bold text-indigo-950">Alunos</h1>
+          <p className="text-xs text-gray-400">{students.length} aluno{students.length !== 1 ? 's' : ''}</p>
         </div>
         <AddStudentDialog />
       </div>
@@ -19,7 +19,7 @@ export default async function StudentsPage() {
         {students.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
             <div className="text-4xl mb-3">👥</div>
-            <p className="text-sm">No students yet. Add your first student to get started.</p>
+            <p className="text-sm">Sem alunos. Adicione o primeiro aluno para começar.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
