@@ -26,7 +26,7 @@ export default async function StudentProfilePage({ params, searchParams }: Props
 
   return (
     <div>
-      <div className="bg-white border-b border-indigo-100 px-7 py-4 flex items-center justify-between">
+      <div className="bg-white border-b border-indigo-100 px-4 py-3 md:px-7 md:py-4 flex items-center justify-between">
         <div>
           <div className="text-xs text-gray-400 mb-0.5">
             <a href="/students" className="text-indigo-500 hover:underline">Students</a>
@@ -43,7 +43,7 @@ export default async function StudentProfilePage({ params, searchParams }: Props
         </div>
       </div>
 
-      <div className="p-7">
+      <div className="p-4 md:p-7">
         <ProfileHeader student={student} />
         <StatBar student={student} />
         <TabNav studentId={id} active={tab} />
