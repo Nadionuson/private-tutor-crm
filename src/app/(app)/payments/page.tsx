@@ -20,14 +20,14 @@ export default async function PaymentsPage() {
 
   return (
     <div>
-      <div className="bg-white border-b border-indigo-100 px-7 py-4">
+      <div className="bg-white border-b border-indigo-100 px-4 py-3 md:px-7 md:py-4">
         <h1 className="text-lg font-bold text-indigo-950">Payments</h1>
         <p className="text-xs text-gray-400">Outstanding balances and payment history</p>
       </div>
 
-      <div className="p-7">
+      <div className="p-4 md:p-7">
         {/* KPI cards */}
-        <div className="grid grid-cols-3 gap-3.5 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
           <div className="bg-white border border-indigo-100 rounded-xl p-4">
             <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Total outstanding</div>
             <div className="text-2xl font-bold text-red-500">{formatCurrency(totalOutstanding)}</div>
@@ -45,7 +45,7 @@ export default async function PaymentsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-[1fr_340px] gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5">
           {/* Student ranking */}
           <div className="bg-white border border-indigo-100 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-indigo-50">
